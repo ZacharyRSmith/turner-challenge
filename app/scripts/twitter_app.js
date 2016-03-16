@@ -10,14 +10,17 @@ var twitterApp = {
   },
 
   addStatus: function (status) {
-    var $tweet = $('<li class="tweet">' + status.text + '</li>');
-    // DUP #feed
-    $('.feed').append($tweet);
+    var text = '<b>@' + status.user.screen_name + ': </b>' +
+               '<em>' + status.text + '</em>' +
+               ' on ' + status.created_at.substr(0, 10);
+    var $tweet = $('<div class="tweet">' + text + '</div>');
+    // DUP .tweets
+    $('.tweets').append($tweet);
   },
 
   clearFeed: function () {
-    // DUP #feed
-    $('.feed > .tweets').children().remove();
+    // DUP .tweets
+    $('.tweets').children().remove();
   },
 
   createNewFeed: function (newFeedQuery) {
@@ -66,8 +69,8 @@ var twitterApp = {
     if (!Array.isArray(data.statuses)) return;
 
     twitterApp.clearFeed();
-    data.statuses.forEach(function (status) {
-      twitterApp.addStatus(status);
+    data.statuses.forEach(function (s) {
+      twitterApp.addStatus(s);
     });
   },
 };

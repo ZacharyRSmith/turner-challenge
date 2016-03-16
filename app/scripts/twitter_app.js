@@ -63,6 +63,8 @@ var twitterApp = {
   },
 
   handleFeeds: function (feeds) {
+    twitterApp.clearFeeds();
+
     Object.keys(feeds).forEach(function (feedQuery) {
       var statuses = feeds[feedQuery].statuses;
       var $feed = twitterApp.genFeed(feedQuery);
@@ -87,7 +89,6 @@ var twitterApp = {
   },
 
   updateFeeds: function () {
-    twitterApp.clearFeeds();
     twitterApp.fetch();
   }
 };

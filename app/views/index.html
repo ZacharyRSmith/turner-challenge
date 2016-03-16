@@ -3,10 +3,22 @@
 <head>
   <meta charset="utf-8">
   <title>Turner Challenge</title>
+
+  <script src="./lib/jquery.js"></script>
+
+  <script src="./scripts/twitter_app.js"></script>
 </head>
 <body>
+  <div id="main">
+    <h1>Turner Challenge</h1>
 
-<h1>Turner Challenge</h1>
-
+    <div id="feed">
+    </div>
+  </div>
 </body>
+<script>
+  $(document).ready(function () {
+    twitterApp.init();
+  });
+</script>
 </html>

@@ -18,7 +18,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/api', function (req, res, next) {
   // Make q dynamic
-  client.get('search/tweets', {q: 'javascript'}, function (err, data, response) {
+  client.get('search/tweets', {q: 'javascript, ruby', lang: 'en'}, function (err, data, response) {
     if (err) return console.error(err);
     console.log('TWITTER API RESPONSE:', response);
     res.status(200).send(data);

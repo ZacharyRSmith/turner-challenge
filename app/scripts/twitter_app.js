@@ -33,8 +33,8 @@ var twitterApp = {
       data: newFeedQuery,
       contentType: 'application/json',
       success: function (data) {
-        twitterApp.fetch();
         console.log('twitterApp: new feed created for:', newFeedQuery);
+        twitterApp.fetch();
       },
       error: function (err) {
         console.error('twitterApp: new feed creation error:', err);
@@ -55,10 +55,10 @@ var twitterApp = {
   },
 
   genFeed: function (feedQuery) {
-    var feedHTML = '<div class="feed" data-feed-query="' + feedQuery + '">' +
-                     '<h3>Feed for <i>' + feedQuery + '</i> tweets</h3>' +
-                     '<ul class="tweets"></ul>' +
-                   '</div>';
+    var feedHTML ='<div class="feed col-lg-3 col-md-3 col-sm-4" data-feed-query="' + feedQuery + '">' +
+                    '<h4 class="title">' + feedQuery + '</h4>' +
+                    '<ul class="tweets"></ul>' +
+                  '</div>';
     return $($.parseHTML(feedHTML));
   },
 

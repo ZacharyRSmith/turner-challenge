@@ -26,6 +26,7 @@ var twitterApp = {
     // TODO refactor this into feeds stored on server
     // Add feed elt
     console.log('createNewFeed:', newFeedQuery);
+    twitterApp.startSpinner();
 
     $.ajax({
       url: twitterApp.server,
@@ -38,13 +39,12 @@ var twitterApp = {
       },
       error: function (err) {
         console.error('twitterApp: new feed creation error:', err);
-      }
+      },
+      complete: twitterApp.stopSpinner
     });
   },
 
   fetch: function () {
-    twitterApp.startSpinner();
-
     $.ajax({
       url: twitterApp.server,
       type: 'GET',

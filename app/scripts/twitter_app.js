@@ -6,21 +6,20 @@ var twitterApp = {
     $('#new-feed').off('submit.handleSubmit').on('submit.handleSubmit', twitterApp.handleSubmit);
 
     twitterApp.fetch();
-    setInterval(twitterApp.fetch, 5000);
+    setInterval(twitterApp.updateFeeds, 5000);
   },
 
-  addStatus: function (status) {
-    var text = '<b>@' + status.user.screen_name + ': </b>' +
-               '<em>' + status.text + '</em>' +
-               ' on ' + status.created_at.substr(0, 10);
-    var $tweet = $('<div class="tweet">' + text + '</div>');
-    // DUP .tweets
-    $('.tweets').append($tweet);
+  addStatuses: function ($feed, statuses) {
+    $feedTweets = $feed.find('.tweets');
+
+    statuses.forEach(function (s) {
+      $tweet = twitterApp.parseStatus(s);
+      $feedTweets.append($tweet);
+    });
   },
 
-  clearFeed: function () {
-    // DUP .tweets
-    $('.tweets').children().remove();
+  clearFeeds: function () {
+    $('#feeds').children().remove();
   },
 
   createNewFeed: function (newFeedQuery) {
@@ -43,19 +42,33 @@ var twitterApp = {
     });
   },
 
-  fetch: function (data) {
+  fetch: function () {
     $.ajax({
       url: twitterApp.server,
       type: 'GET',
-      data: data,
       contentType: 'application/json',
-      success: function (data) {
-        twitterApp.setFeed(data);
-        // console.log('twitterApp: fetch success. Data:', data);
-      },
+      success: twitterApp.handleFeeds,
       error: function (err) {
         console.error('twitterApp: fetch error:', err);
       }
+    });
+  },
+
+  genFeed: function (feedQuery) {
+    var feedHTML = '<div class="feed" data-feed-query="' + feedQuery + '">' +
+                     '<h3>Feed for <i>' + feedQuery + '</i> tweets</h3>' +
+                     '<ul class="tweets"></ul>' +
+                   '</div>';
+    return $($.parseHTML(feedHTML));
+  },
+
+  handleFeeds: function (feeds) {
+    Object.keys(feeds).forEach(function (feedQuery) {
+      var statuses = feeds[feedQuery].statuses;
+      var $feed = twitterApp.genFeed(feedQuery);
+
+      twitterApp.addStatuses($feed, statuses);
+      $('#feeds').append($feed);
     });
   },
 
@@ -65,12 +78,16 @@ var twitterApp = {
     $('#new-feed-query').val('');
   },
 
-  setFeed: function (data) {
-    if (!Array.isArray(data.statuses)) return;
-
-    twitterApp.clearFeed();
-    data.statuses.forEach(function (s) {
-      twitterApp.addStatus(s);
-    });
+  parseStatus: function (status) {
+    var text = '<b>@' + status.user.screen_name + ': </b>' +
+               '<em>' + status.text + '</em>' +
+               // TODO refactor:
+               ' on ' + status.created_at.substr(0, 10);
+    return $('<div class="tweet">' + text + '</div>'); 
   },
+
+  updateFeeds: function () {
+    twitterApp.clearFeeds();
+    twitterApp.fetch();
+  }
 };

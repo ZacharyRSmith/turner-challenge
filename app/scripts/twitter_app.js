@@ -57,9 +57,8 @@ var twitterApp = {
   },
 
   handleSubmit: function (evt) {
-    console.log('evt', evt);
     evt.preventDefault();
-    twitterApp.createNewFeed($('#new-feed-query'));
+    twitterApp.createNewFeed($('#new-feed-query').val());
     $('#new-feed-query').val('');
   },
 

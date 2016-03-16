@@ -2,7 +2,6 @@ node_modules
 .DS_Store
 .AppleDouble
 .LSOverride
-azure.err
 iisnode.yml
 
 # Icon must ends with two \r.
@@ -16,6 +15,4 @@ Icon
 .Spotlight-V100
 .Trashes
 node_modules/
-client/lib
-doozy/client/lib
 npm-debug.log

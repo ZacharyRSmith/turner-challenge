@@ -76,7 +76,9 @@ var twitterApp = {
 
   handleSubmit: function (evt) {
     evt.preventDefault();
-    twitterApp.createNewFeed($('#new-feed-query').val());
+    var newFeedQuery = $('#new-feed-query').val();
+    if (newFeedQuery.length > 500) return alert('Search query cannot exceed 500 characters');
+    twitterApp.createNewFeed(newFeedQuery);
     $('#new-feed-query').val('');
   },
 

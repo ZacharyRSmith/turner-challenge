@@ -18,20 +18,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/api', function (req, res, next) {
-  console.log('get /api');
   var feedsData = { };
 
   (function getFeed (feedsIdx) {
-    if (feedsIdx === feeds.length) {
-      console.log('end getFeed');
-      return res.status(200).send(feedsData);
-    }
+    if (feedsIdx === feeds.length) return res.status(200).send(feedsData);
     var query = feeds[feedsIdx];
-    console.log('query', query);
 
     client.get('search/tweets', {q: query, lang: 'en'}, function (err, data, response) {
       if (err) return console.error(err);
-      // console.log('TWITTER API RESPONSE:', response);
+
       feedsData[query] = data;
       getFeed(feedsIdx + 1);
     });
@@ -45,7 +40,8 @@ router.post('/api', function (req, res, next) {
   });
 
   req.on('end', function () {
-    console.log('@@@@@', newFeedQuery, '#####');
+    if (feeds.indexOf(newFeedQuery) !== -1) return;
+    feeds.push(newFeedQuery);
   });
 });
 

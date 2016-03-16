@@ -11,12 +11,17 @@
   <div class="container">
     <h1>Turner Challenge</h1>
 
+    <hr />
     <form action="#" id="new-feed" method="POST">
-      <label for="new-feed-query">Submit a search query for a new feed:</label>
-      <input type="text" name="new-feed-query" id="new-feed-query" />
-      <input type="submit" name="submit" class="submit" />
+      <fieldset class="form-group">
+        <label for="new-feed-query">New feed:</label>
+        <input type="text" name="new-feed-query" id="new-feed-query" />
+      </fieldset>
+
+      <input type="submit" name="submit" class="submit btn-primary" />
     </form>
     <div class="spinner"><img src="images/spinner.gif"></div>
+    <hr />
 
     <div class="row text-center" id="feeds">
     </div>

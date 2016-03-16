@@ -43,6 +43,8 @@ var twitterApp = {
   },
 
   fetch: function () {
+    twitterApp.startSpinner();
+
     $.ajax({
       url: twitterApp.server,
       type: 'GET',
@@ -50,7 +52,8 @@ var twitterApp = {
       success: twitterApp.handleFeeds,
       error: function (err) {
         console.error('twitterApp: fetch error:', err);
-      }
+      },
+      complete: twitterApp.stopSpinner
     });
   },
 
@@ -88,6 +91,14 @@ var twitterApp = {
                // TODO refactor:
                ' on ' + status.created_at.substr(0, 10);
     return $('<div class="tweet">' + text + '</div>'); 
+  },
+
+  startSpinner: function(){
+    $('.spinner img').show();
+  },
+
+  stopSpinner: function(){
+    $('.spinner img').fadeOut('fast');
   },
 
   updateFeeds: function () {

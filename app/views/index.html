@@ -4,12 +4,24 @@
   <meta charset="utf-8">
   <title>Turner Challenge</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
   <div class="container">
     <h1>Turner Challenge</h1>
 
-    <div id="feed">
+    <form action="#" id="new-feed" method="POST">
+      <label for="new-feed-query">Submit a search query for a new feed:</label>
+      <input type="text" name="new-feed-query" id="new-feed-query" />
+      <input type="submit" name="submit" class="submit" />
+    </form>
+
+    <div id="feeds">
+      <div class="feed">
+        <h3>Feed for <i>JavaScript</i> tweets</h3>
+        <ul class="tweets"></ul>
+      </div>
     </div>
   </div>
 </body>

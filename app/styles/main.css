@@ -1,0 +1,9 @@
+.tweet {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+
+.tweet:hover {
+    background-color: #ddd;
+}

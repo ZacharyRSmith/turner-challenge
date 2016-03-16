@@ -9,6 +9,7 @@ var client = new Twitter({
   access_token_key: process.env.TWITTER_TOKEN_KEY,
   access_token_secret: process.env.TWITTER_TOKEN_SECRET
 });
+// var feeds = ['JavaScript'];
 var router = express.Router();
 
 
@@ -20,8 +21,19 @@ router.get('/api', function (req, res, next) {
   // Make q dynamic
   client.get('search/tweets', {q: 'javascript, ruby', lang: 'en'}, function (err, data, response) {
     if (err) return console.error(err);
-    console.log('TWITTER API RESPONSE:', response);
+    // console.log('TWITTER API RESPONSE:', response);
     res.status(200).send(data);
+  });
+});
+
+router.post('/api', function (req, res, next) {
+  var newFeedQuery = "";
+  req.on('data', function (chunk) {
+    newFeedQuery += chunk;
+  });
+
+  req.on('end', function () {
+    console.log('@@@@@', newFeedQuery, '#####');
   });
 });
 

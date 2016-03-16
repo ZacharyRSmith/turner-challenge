@@ -84,7 +84,7 @@ var twitterApp = {
     var text = '<b>@' + status.user.screen_name + ': </b>' +
                '<em>' + status.text + '</em>' +
                // TODO refactor:
-               ' on ' + status.created_at.substr(0, 10);
+               ' (on ' + status.created_at.substr(0, 10) + ')';
     return $('<div class="tweet">' + text + '</div>'); 
   },
 

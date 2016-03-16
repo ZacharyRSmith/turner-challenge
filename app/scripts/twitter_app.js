@@ -32,16 +32,13 @@ var twitterApp = {
       url: twitterApp.server,
       type: 'POST',
       data: newFeedQuery,
-      contentType: 'application/json',
-      success: function (data) {
+      contentType: 'application/json'
+    }).done(function (data) {
         console.log('twitterApp: new feed created for:', newFeedQuery);
         twitterApp.fetch();
-      },
-      error: function (err) {
+    }).fail(function (err) {
         console.error('twitterApp: new feed creation error:', err);
-      },
-      complete: twitterApp.stopSpinner
-    });
+    }).always(twitterApp.stopSpinner);
   },
 
   fetch: function () {
@@ -49,12 +46,10 @@ var twitterApp = {
       url: twitterApp.server,
       type: 'GET',
       contentType: 'application/json',
-      success: twitterApp.handleFeeds,
-      error: function (err) {
+      success: twitterApp.handleFeeds
+    }).fail(function (err) {
         console.error('twitterApp: fetch error:', err);
-      },
-      complete: twitterApp.stopSpinner
-    });
+    }).always(twitterApp.stopSpinner);
   },
 
   genFeed: function (feedQuery) {
